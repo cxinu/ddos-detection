@@ -15,3 +15,59 @@ This project implements a basic DDoS detection system in Go. It monitors incomin
 - `monitor/traffic.go`: Request monitoring and detection logic.
 - `mitigation/actions.go`: Mitigation strategies.
 
+## Docker Instructions to Run Load Balancers and Servers
+
+Directory Structure
+```
+ddos-prototype/
+├── Docker/
+│   ├── backend/
+│   │   ├── Dockerfile
+│   │   └── index.html
+│   └── loadbalancer/
+│       ├── Dockerfile
+│       └── nginx.conf
+├── alert
+│   └── email.go
+├── config
+│   └── config.go
+├── mitigation
+│   └── actions.go
+├── monitor
+│   └── traffic.go
+├── go.mod
+├── main.go
+├── network_logs.pcap
+└── README.md
+```
+
+Create a Docker network
+```shell
+docker network create ddos-net
+```
+
+Build the backend server image
+```shell
+# Build the Docker image
+docker build -t nginx-backend Docker/backend
+
+# Run the Docker container
+docker run -d --name backend1 --network ddos-net nginx-backend
+docker run -d --name backend2 --network ddos-net nginx-backend
+```
+
+Build the load balancer image
+```shell
+# Build the Docker image
+docker build -t nginx-lb Docker/loadbalancer
+
+# Run the Docker container
+docker run -d --name loadbalancer --network ddos-net -p 8080:80 nginx-lb
+```
+
+Access the load balancer
+```shell
+curl http://localhost:8080
+```
+
+Or visit `http://localhost:8080` in your browser.
