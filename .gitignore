@@ -1,0 +1,15 @@
+# Ignore .venv folder
+.venv/
+
+# Ignore Python related files
+*.pyc
+*.pyo
+__pycache__/
+
+# Ignore Go related files
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out

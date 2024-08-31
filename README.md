@@ -27,6 +27,13 @@ ddos-prototype/
 │   └── loadbalancer/
 │       ├── Dockerfile
 │       └── nginx.conf
+├── Python
+│   ├── analyze.py
+│   ├── ip_detect.py
+│   ├── ip_syndetect.py
+│   ├── ip_testing.py
+│   ├── network_logs.pcap
+│   └── traffic_log.txt
 ├── alert
 │   └── email.go
 ├── config
